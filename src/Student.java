@@ -1,9 +1,10 @@
+import java.util.HashMap;
 import java.util.Map;
 
 public class Student {
     private String firstName;
     private String lastName;
-    private Map<String, Double> assignmentMap;
+    private Map<String, Double> assignmentMap = new HashMap<>();
 
     public Student(String firstName, String lastName){
         this.firstName = firstName;

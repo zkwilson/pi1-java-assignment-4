@@ -8,9 +8,27 @@ import java.util.Scanner;
 
 public class Assignment4 {
     private static Scanner input = new Scanner(System.in);
+
     public static void main (String... args) {
         greetings();
-        getStudentFromFile();
+        List<Student> studentList = getStudentFromFile();
+        getAssignmentGrades(studentList);
+    }
+
+    private static void getAssignmentGrades(List<Student> studentList) {
+        String nextAssignment = "";
+        do {
+            System.out.print("\nEnter the name of an Assignment: ");
+            String assignmentName = input.nextLine();
+            for(Student student : studentList){
+                System.out.print("Enter the grade for " + student.getFirstName() + " " + student.getLastName() + ": ");
+                Double grade = Double.parseDouble(input.nextLine());
+                student.setAssignmentMap(assignmentName,grade);
+            }
+            System.out.print("\nAnother Assignment? (y/n): ");
+            nextAssignment = input.nextLine();
+        }while(nextAssignment.equalsIgnoreCase("y"));
+
     }
 
 
@@ -28,8 +46,10 @@ public class Assignment4 {
                 System.out.print("Enter the student input file location: ");
                 String fileLocation = input.nextLine();
                 myReader = new Scanner(new File(fileLocation));
+                System.out.println();
                 while(myReader.hasNextLine()){
                     String line = myReader.nextLine();
+                    System.out.println("Creating Student " + line);
                     String[] studentArray = line.split(" ");
                     Student newStudent = new Student(studentArray[0], studentArray[1]);
                     studentList.add(newStudent);
